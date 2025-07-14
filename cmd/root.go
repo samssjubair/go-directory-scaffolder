@@ -19,8 +19,12 @@ var rootCmd = &cobra.Command{
 Example:
   scaffold project.yaml
   scaffold --dry-run project.yaml`,
-	Args: cobra.ExactArgs(1),
+	Args: cobra.MaximumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
+		if len(args) == 0 {
+			return cmd.Help()
+		}
+
 		tmpl, err := internal.LoadTemplate(args[0])
 		if err != nil {
 			color.Red("❌ Error loading template: %v", err)
