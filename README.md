@@ -101,7 +101,3 @@ go build -o scaffold .
 # Run
 ./scaffold templates/react-app.yaml
 ```
-
-## License
-
-MIT 
