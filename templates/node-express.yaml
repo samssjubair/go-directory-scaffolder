@@ -1,0 +1,17 @@
+name: node-express
+folders:
+  - src
+  - src/routes
+  - src/controllers
+  - src/models
+  - src/middleware
+  - config
+  - tests
+files:
+  - README.md
+  - package.json
+  - .gitignore
+  - .env.example
+  - src/app.js
+  - src/server.js
+  - src/routes/index.js 

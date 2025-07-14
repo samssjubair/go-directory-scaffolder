@@ -1,0 +1,14 @@
+name: react-app
+folders:
+  - src
+  - public
+  - src/components
+  - src/pages
+  - src/utils
+files:
+  - README.md
+  - package.json
+  - .gitignore
+  - src/index.js
+  - src/App.js
+  - public/index.html 

@@ -1,0 +1,18 @@
+name: go-api
+folders:
+  - cmd
+  - internal
+  - pkg
+  - api
+  - docs
+  - internal/handlers
+  - internal/models
+  - internal/database
+files:
+  - README.md
+  - go.mod
+  - .gitignore
+  - main.go
+  - cmd/server.go
+  - internal/config.go
+  - api/routes.go 
