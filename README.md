@@ -9,6 +9,7 @@ A CLI tool written in Go that creates folder structures and files based on YAML 
 - ✅ Dry-run mode to preview changes
 - ✅ Colorful output with emojis
 - ✅ Built-in templates included
+- ✅ Built-in template selection
 
 ## Installation
 
@@ -28,6 +29,30 @@ go build -o scaffold .
 # Preview what would be created (dry-run)
 ./scaffold --dry-run project.yaml
 ```
+
+### Built-in Templates
+
+```bash
+# List all available built-in templates
+./scaffold --list-templates
+
+# Use a built-in template
+./scaffold --template react-app
+./scaffold --template go-api
+./scaffold --template node-express
+
+# Use built-in template with custom project name
+./scaffold --template react-app my-custom-app
+
+# Preview built-in template
+./scaffold --template go-api --dry-run
+```
+
+### Available Built-in Templates
+
+- **react-app** - React application with components, pages, and utils
+- **go-api** - Go API project with handlers, models, and database  
+- **node-express** - Node.js Express application with routes and middleware
 
 ### Example YAML Template
 
@@ -57,14 +82,6 @@ my-project/
 └── src/index.js
 ```
 
-### Built-in Templates
-
-The project includes several sample templates in the `templates/` directory:
-
-- `react-app.yaml` - React application structure
-- `go-api.yaml` - Go API project structure
-- `node-express.yaml` - Node.js Express application
-
 ## Project Structure
 
 ```
@@ -73,7 +90,8 @@ scaffold/
 │   └── root.go
 ├── internal/
 │   ├── parser.go       # load & parse YAML
-│   └── creator.go      # create dirs & files
+│   ├── creator.go      # create dirs & files
+│   └── templates.go    # built-in templates
 ├── templates/          # sample templates
 ├── go.mod
 ├── main.go
@@ -100,4 +118,5 @@ go build -o scaffold .
 
 # Run
 ./scaffold templates/react-app.yaml
+./scaffold --template react-app
 ```
