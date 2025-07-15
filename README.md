@@ -2,6 +2,9 @@
 
 A CLI tool written in Go that creates folder structures and files based on YAML templates.
 
+![Typ0 Demo](https://img.shields.io/badge/Go-1.21+-blue.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
 ## Features
 
 - ✅ Create folder structures from YAML templates
@@ -208,4 +211,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
-- Built with [Cobra](https://github.com/spf13/cobra) for CLI functionality
+- [cobra](https://github.com/spf13/cobra)
+- [gopkg.in/yaml.v2](https://github.com/go-yaml/yaml)
+- [fatih/color](https://github.com/fatih/color)
