@@ -1,0 +1,70 @@
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    main: .
+    binary: scaffold
+    ldflags:
+      - -s -w -X cmd.version={{.Version}}
+
+archives:
+  - format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else }}{{ .Arch }}{{ end }}
+    format_overrides:
+      - goos: windows
+        format: zip
+
+brews:
+  - name: scaffold
+    homepage: "https://github.com/samssjubair/go-directory-scaffolder"
+    description: "CLI tool that creates folder structures and files based on YAML templates"
+    tap:
+      owner: samssjubair
+      name: homebrew-scaffold
+    commit_author:
+      name: github-actions[bot]
+      email: github-actions[bot]@users.noreply.github.com
+    test: |
+      system "#{bin}/scaffold --help"
+      system "#{bin}/scaffold --list-templates"
+      system "#{bin}/scaffold version"
+    install: |
+      bin.install "scaffold"
+      puts "🏗️  Directory Scaffolder installed successfully!"
+      puts ""
+      puts "📋 List templates:     scaffold --list-templates"
+      puts "🚀 Create project:     scaffold --template react-app"
+      puts "🔍 Preview changes:    scaffold --dry-run project.yaml"
+      puts "📖 Show help:         scaffold --help"
+      puts ""
+      puts "Happy scaffolding! ✨"
+
+checksum:
+  name_template: "checksums.txt"
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^ci:"
+      - Merge pull request
+      - Merge branch 
