@@ -15,8 +15,21 @@ A CLI tool written in Go that creates folder structures and files based on YAML 
 
 ## Installation
 
+### Homebrew (macOS/Linux)
+
 ```bash
-go mod tidy
+brew install samssjubair/scaffold
+```
+
+### Manual Installation
+
+Download the latest binary from the [releases page](https://github.com/samssjubair/go-directory-scaffolder/releases).
+
+### Build from Source
+
+```bash
+git clone https://github.com/samssjubair/go-directory-scaffolder.git
+cd go-directory-scaffolder
 go build -o scaffold .
 ```
 
@@ -26,36 +39,36 @@ go build -o scaffold .
 
 ```bash
 # Create structure from a YAML template
-./scaffold project.yaml
+scaffold project.yaml
 
 # Preview what would be created (dry-run)
-./scaffold --dry-run project.yaml
+scaffold --dry-run project.yaml
 ```
 
 ### Built-in Templates
 
 ```bash
 # List all available built-in templates
-./scaffold --list-templates
+scaffold --list-templates
 
 # Use a built-in template
-./scaffold --template react-app
-./scaffold --template go-api
-./scaffold --template node-express
+scaffold --template react-app
+scaffold --template go-api
+scaffold --template node-express
 
 # Use built-in template with custom project name
-./scaffold --template react-app my-custom-app
+scaffold --template react-app my-custom-app
 
 # Preview built-in template
-./scaffold --template go-api --dry-run
+scaffold --template go-api --dry-run
 ```
 
 ### Git Integration
 
 ```bash
 # Create project and initialize Git repository
-./scaffold --init-git project.yaml
-./scaffold --template react-app --init-git
+scaffold --init-git project.yaml
+scaffold --template react-app --init-git
 
 # This will:
 # - Create the project structure
@@ -68,7 +81,7 @@ go build -o scaffold .
 
 ```bash
 # Skip template validation (not recommended)
-./scaffold --skip-validation project.yaml
+scaffold --skip-validation project.yaml
 
 # Templates are automatically validated for:
 # - Empty names
@@ -116,7 +129,8 @@ my-project/
 ```
 scaffold/
 ├── cmd/                # cobra CLI commands
-│   └── root.go
+│   ├── root.go
+│   └── version.go
 ├── internal/
 │   ├── parser.go       # load & parse YAML
 │   ├── creator.go      # create dirs & files
@@ -176,3 +190,7 @@ The generated `.gitignore` includes patterns for:
 - IDE files (.vscode, .idea)
 - OS files (.DS_Store, Thumbs.db)
 - Logs and temporary files
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
