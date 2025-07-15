@@ -18,7 +18,7 @@ A CLI tool written in Go that creates folder structures and files based on YAML 
 ### Homebrew (macOS/Linux)
 
 ```bash
-brew install samssjubair/scaffold
+brew install samssjubair/scaffold/scaffold
 ```
 
 ### Manual Installation
@@ -32,6 +32,8 @@ git clone https://github.com/samssjubair/go-directory-scaffolder.git
 cd go-directory-scaffolder
 go build -o scaffold .
 ```
+
+<img width="1680" height="671" alt="screenshot" src="https://github.com/user-attachments/assets/597aed5a-fc13-4316-9071-f17176ae8afc" />
 
 ## Usage
 
@@ -155,9 +157,6 @@ scaffold/
 # Install dependencies
 go mod tidy
 
-# Run tests
-go test ./...
-
 # Build
 go build -o scaffold .
 
@@ -191,6 +190,22 @@ The generated `.gitignore` includes patterns for:
 - OS files (.DS_Store, Thumbs.db)
 - Logs and temporary files
 
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+### Development Setup
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/feature_name`)
+3. Commit your changes (`git commit -m 'add new feature'`)
+4. Push to the branch (`git push origin feature/feature_name`)
+5. Open a Pull Request
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Built with [Cobra](https://github.com/spf13/cobra) for CLI functionality
