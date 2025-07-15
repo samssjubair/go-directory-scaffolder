@@ -1,5 +1,3 @@
-version: 2
-
 before:
   hooks:
     - go mod tidy
@@ -34,7 +32,7 @@ brews:
   - name: scaffold
     homepage: "https://github.com/samssjubair/go-directory-scaffolder"
     description: "CLI tool that creates folder structures and files based on YAML templates"
-    repository:
+    tap:
       owner: samssjubair
       name: homebrew-scaffold
     commit_author:
@@ -44,7 +42,8 @@ brews:
       system "#{bin}/scaffold --help"
       system "#{bin}/scaffold --list-templates"
       system "#{bin}/scaffold version"
-    post_install: |
+    install: |
+      bin.install "scaffold"
       puts "🏗️  Directory Scaffolder installed successfully!"
       puts ""
       puts "📋 List templates:     scaffold --list-templates"
@@ -68,13 +67,4 @@ changelog:
       - "^test:"
       - "^ci:"
       - Merge pull request
-      - Merge branch
-  groups:
-    - title: Features
-      regexp: "^.*feat[(\\w)]*:+.*$"
-      order: 0
-    - title: Bug fixes
-      regexp: "^.*fix[(\\w)]*:+.*$"
-      order: 1
-    - title: Others
-      order: 999 
+      - Merge branch 
