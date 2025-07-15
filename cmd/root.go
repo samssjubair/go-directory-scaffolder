@@ -13,6 +13,8 @@ import (
 var dryRun bool
 var templateName string
 var listTemplates bool
+var initGit bool
+var skipValidation bool
 
 var rootCmd = &cobra.Command{
 	Use:   "scaffold [template.yaml]",
@@ -24,7 +26,9 @@ Examples:
   scaffold --template react-app            # Use built-in React template
   scaffold --template go-api --name my-api # Use built-in template with custom name
   scaffold --list-templates               # List all built-in templates
-  scaffold --dry-run project.yaml         # Preview what would be created`,
+  scaffold --dry-run project.yaml         # Preview what would be created
+  scaffold --init-git project.yaml        # Create project and initialize Git
+  scaffold --skip-validation project.yaml # Skip template validation`,
 	Args: cobra.MaximumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// Handle list templates flag
@@ -50,6 +54,8 @@ func init() {
 	rootCmd.Flags().BoolVarP(&dryRun, "dry-run", "d", false, "Show what would be created without actually creating files")
 	rootCmd.Flags().StringVarP(&templateName, "template", "t", "", "Use built-in template (react-app, go-api, node-express)")
 	rootCmd.Flags().BoolVarP(&listTemplates, "list-templates", "l", false, "List all available built-in templates")
+	rootCmd.Flags().BoolVarP(&initGit, "init-git", "g", false, "Initialize Git repository after creating project")
+	rootCmd.Flags().BoolVarP(&skipValidation, "skip-validation", "s", false, "Skip template validation")
 }
 
 func listBuiltinTemplates() error {
@@ -92,6 +98,16 @@ func handleBuiltinTemplate(templateName string, args []string) error {
 	}
 
 	color.Green("✅ Project scaffold created: %s", tmpl.Name)
+
+	// Initialize Git if requested
+	if initGit {
+		if err := setupGit(tmpl.Name); err != nil {
+			color.Red("❌ Error setting up Git: %v", err)
+			return err
+		}
+		color.Green("✅ Git repository initialized")
+	}
+
 	return nil
 }
 
@@ -114,7 +130,22 @@ func handleCustomTemplate(templatePath string) error {
 	}
 
 	color.Green("✅ Project scaffold created: %s", tmpl.Name)
+
+	// Initialize Git if requested
+	if initGit {
+		if err := setupGit(tmpl.Name); err != nil {
+			color.Red("❌ Error setting up Git: %v", err)
+			return err
+		}
+		color.Green("✅ Git repository initialized")
+	}
+
 	return nil
+}
+
+func setupGit(projectName string) error {
+	git := internal.NewGitIntegration(projectName)
+	return git.SetupGit()
 }
 
 func Execute() {

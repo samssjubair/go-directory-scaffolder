@@ -10,6 +10,8 @@ A CLI tool written in Go that creates folder structures and files based on YAML 
 - ✅ Colorful output with emojis
 - ✅ Built-in templates included
 - ✅ Built-in template selection
+- ✅ Template validation
+- ✅ Git integration
 
 ## Installation
 
@@ -46,6 +48,33 @@ go build -o scaffold .
 
 # Preview built-in template
 ./scaffold --template go-api --dry-run
+```
+
+### Git Integration
+
+```bash
+# Create project and initialize Git repository
+./scaffold --init-git project.yaml
+./scaffold --template react-app --init-git
+
+# This will:
+# - Create the project structure
+# - Initialize a Git repository
+# - Create a comprehensive .gitignore file
+# - Make an initial commit
+```
+
+### Template Validation
+
+```bash
+# Skip template validation (not recommended)
+./scaffold --skip-validation project.yaml
+
+# Templates are automatically validated for:
+# - Empty names
+# - Invalid characters
+# - Duplicate folders/files
+# - Conflicts between folders and files
 ```
 
 ### Available Built-in Templates
@@ -91,7 +120,9 @@ scaffold/
 ├── internal/
 │   ├── parser.go       # load & parse YAML
 │   ├── creator.go      # create dirs & files
-│   └── templates.go    # built-in templates
+│   ├── templates.go    # built-in templates
+│   ├── validator.go    # template validation
+│   └── git.go         # Git integration
 ├── templates/          # sample templates
 ├── go.mod
 ├── main.go
@@ -120,3 +151,28 @@ go build -o scaffold .
 ./scaffold templates/react-app.yaml
 ./scaffold --template react-app
 ```
+
+## Template Validation
+
+The scaffolder automatically validates templates for:
+
+- **Empty names** - Project name cannot be empty
+- **Invalid characters** - Names cannot contain `<>:"/\|?*`
+- **Duplicates** - No duplicate folders or files
+- **Conflicts** - Files and folders cannot have the same name
+
+## Git Integration
+
+When using `--init-git`, the scaffolder will:
+
+1. **Initialize Git repository** in the project directory
+2. **Create .gitignore** with common patterns for various languages
+3. **Make initial commit** with all created files
+
+The generated `.gitignore` includes patterns for:
+- Dependencies (node_modules, vendor)
+- Build outputs (dist, build)
+- Environment files (.env)
+- IDE files (.vscode, .idea)
+- OS files (.DS_Store, Thumbs.db)
+- Logs and temporary files

@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"fmt"
 	"os"
 
 	"gopkg.in/yaml.v2"
@@ -24,5 +25,11 @@ func LoadTemplate(path string) (*Template, error) {
 	if err := yaml.Unmarshal(data, &tmpl); err != nil {
 		return nil, err
 	}
+
+	// Validate the template
+	if err := ValidateTemplate(&tmpl); err != nil {
+		return nil, fmt.Errorf("template validation failed: %w", err)
+	}
+
 	return &tmpl, nil
 } 
